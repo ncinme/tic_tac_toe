@@ -1,0 +1,36 @@
+ERROR 2022-01-02 22:34:28,287 -- list index out of range
+Traceback (most recent call last):
+  File "D:/TechnicalLearning/PythonLearning/100_Days_of_Code/Advanced/83_Tic_Tac_Toe/main.py", line 57, in play_game
+    block[row][col] = '_X_'
+IndexError: list index out of range
+ERROR 2022-01-02 22:34:31,046 -- invalid literal for int() with base 10: 'wer'
+Traceback (most recent call last):
+  File "D:/TechnicalLearning/PythonLearning/100_Days_of_Code/Advanced/83_Tic_Tac_Toe/main.py", line 57, in play_game
+    block[row][col] = '_X_'
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/TechnicalLearning/PythonLearning/100_Days_of_Code/Advanced/83_Tic_Tac_Toe/main.py", line 48, in play_game
+    row = int(input('Choose a row 1, 2 or 3: ')) - 1
+ValueError: invalid literal for int() with base 10: 'wer'
+ERROR 2022-01-02 22:34:31,454 -- invalid literal for int() with base 10: 'wer'
+Traceback (most recent call last):
+  File "D:/TechnicalLearning/PythonLearning/100_Days_of_Code/Advanced/83_Tic_Tac_Toe/main.py", line 57, in play_game
+    block[row][col] = '_X_'
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/TechnicalLearning/PythonLearning/100_Days_of_Code/Advanced/83_Tic_Tac_Toe/main.py", line 48, in play_game
+    row = int(input('Choose a row 1, 2 or 3: ')) - 1
+ValueError: invalid literal for int() with base 10: 'wer'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/TechnicalLearning/PythonLearning/100_Days_of_Code/Advanced/83_Tic_Tac_Toe/main.py", line 48, in play_game
+    row = int(input('Choose a row 1, 2 or 3: ')) - 1
+ValueError: invalid literal for int() with base 10: 'wer'
