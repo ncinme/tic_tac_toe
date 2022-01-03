@@ -1,5 +1,5 @@
 # This program is to build a text-based version of the Tic Tac Toe game - playable in the command line
-# This is a Random Bot version
+# This is a Smart Bot version
 # Allows the user to play again
 # Keeps the score
 
@@ -33,16 +33,41 @@ def play_again():
     return counter
 
 
+def bot_response():
+    flag = True
+    player1_sub = []
+    row = randint(0, 2)
+    col = randint(0, 2)
+    if len(player1_selection) > 1:
+        for item in winning_combination:
+            for selection in player1_selection:
+                if selection in item:
+                    player1_sub.append(selection)
+                    if len(player1_sub) == 2:
+                        player_selection = list(set(item) ^ set(player1_sub))
+                        if not set(player_selection).issubset(set(player2_selection)):
+                            flag = False
+            if flag:
+                player1_sub = []
+            else:
+                break
+        if flag:
+            player_selection = [(row, col)]
+
+    else:
+        player_selection = [(row, col)]
+    return player_selection
+
 def play_game(player):
     try:
         if player == 1:
             row = int(input('Choose a row 1, 2 or 3: ')) - 1
             col = int(input('Choose a column 1, 2 or 3: ')) - 1
+            player_selection = [(row, col)]
         else:
-            row = randint(0, 2)
-            col = randint(0, 2)
-
-        player_selection = [(row, col)]
+            player_selection = bot_response()
+            row = player_selection[0][0]
+            col = player_selection[0][1]
 
         if set(player_selection).issubset(set(player1_selection)) or set(player_selection).issubset(set(player2_selection)):
             if player == 1:
