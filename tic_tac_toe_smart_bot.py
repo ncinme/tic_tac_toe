@@ -1,5 +1,5 @@
 # This program is to build a text-based version of the Tic Tac Toe game - playable in the command line
-# This is a Smart Bot version
+# This is a Smart Bot version. Gives opportunity to the other player to win
 # Allows the user to play again
 # Keeps the score
 
@@ -145,4 +145,3 @@ while count < 10:
     except Exception as err:
         print('Error!! Please try again')
         logging.exception(err)
-

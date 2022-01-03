@@ -131,29 +131,138 @@ winning_combination = [[(0, 0), (0, 1), (0, 2)], [(1, 0), (1, 1), (1, 2)], [(2, 
                        [(0, 0), (1, 0), (2, 0)], [(0, 1), (1, 1), (2, 1)], [(0, 2), (1, 2), (2, 2)],
                        [(0, 0), (1, 1), (2, 2)], [(0, 2), (1, 1), (2, 0)]]
 
-player1_selection = [(1, 0), (2, 1), (0, 2)]
-flag = True
-player1_sub = []
-if len(player1_selection) > 1:
-    for item in winning_combination:
-        for selection in player1_selection:
-            if selection in item:
-                player1_sub.append(selection)
-                if len(player1_sub) == 2:
-                    print(item)
-                    print(player1_sub)
-                    player_selection = list(set(item) ^ set(player1_sub))
-                    print(player_selection)
-                    flag = False
-        if flag:
-            player1_sub = []
-        else:
-            break
-    if flag:
-        row = randint(0, 2)
-        col = randint(0, 2)
-        player_selection = [(row, col)]
-        print(player_selection)
+# player1_selection = [(1, 0)]
+player1_selection = [(0, 1), (2, 1), (1, 0)]
+player2_selection = [(1, 2), (2, 0)]
+# player2_selection = [(0, 0), (1, 2)]
+def bot_win(list1, list2):
+    player_sub = []
+    if len(list1) > 1:
+        for item in winning_combination:
+            for selection in list1:
+                if selection in item:
+                    player_sub.append(selection)
+                    if len(player_sub) == 2:
+                        player_selection = list(set(item) ^ set(player_sub))
+                        print(item)
+                        print(player_sub)
+                        print(player_selection)
+                        print(f'list2: {list2}')
+                        if not set(player_selection).issubset(set(list2)):
+                            print('I am inside')
+                            return player_selection
+            player_sub = []
+    return []
+            # if flag:
+            #     player_sub = []
+            # else:
+            #     break
+    #
+    # return player_selection
+# plr_sel = bot_win(player2_selection, player1_selection)
+plr_sel = bot_win(player2_selection, player1_selection)
+print(f'plr_sel: {plr_sel}')
+if not plr_sel:
+    print('omg')
+
+
+# # player1_selection = [(1, 0)]
+# player1_selection = [(2, 2), (0, 1), (2, 0)]
+# player2_selection = [(0, 2), (2, 1)]
+# # player2_selection = [(0, 0), (1, 2)]
+# def bot_response(list1, list2):
+#     player_sub = []
+#     row = randint(0, 2)
+#     col = randint(0, 2)
+#     if len(list1) > 1:
+#         for item in winning_combination:
+#             for selection in list1:
+#                 if selection in item:
+#                     player_sub.append(selection)
+#                     if len(player_sub) == 2:
+#                         player_selection = list(set(item) ^ set(player_sub))
+#                         print(item)
+#                         print(player_sub)
+#                         print(player_selection)
+#                         print(f'list2: {list2}')
+#                         if not set(player_selection).issubset(set(list2)):
+#                             print('I am inside')
+#                             return player_selection
+#                         else:
+#                             return [(row, col)]
+#             player_sub = []
+#     return [(row, col)]
+#
+#
+# plr_sel = bot_response(player1_selection, player2_selection)
+# print(f'plr_sel: {plr_sel}')
+# if not plr_sel:
+#     print('omg')
+
+
+# flag = True
+# player1_sub = []
+# player2_sub = []
+# player_selection = []
+# row = randint(0, 2)
+# col = randint(0, 2)
+# if len(player1_selection) > 1:
+#     for item in winning_combination:
+#
+#                 for selection in player1_selection:
+#                     if selection in item:
+#                         player1_sub.append(selection)
+#                         if len(player1_sub) == 2:
+#                             print(item)
+#                             print(player1_sub)
+#                             player_selection = list(set(item) ^ set(player1_sub))
+#                             print(player_selection)
+#                             if not set(player_selection).issubset(set(player2_selection)):
+#                                 flag = False
+#                 if flag:
+#                     player1_sub = []
+#                     player2_sub = []
+#                 else:
+#                     break
+#     if flag:
+#         player_selection = [(row, col)]
+#         print(player_selection)
+#
+# else:
+#     player_selection = [(row, col)]
+#     print(player_selection)
+#     row = player_selection[0][0]
+#     col = player_selection[0][1]
+#     print(f'row: {row}')
+#     print(f'col: {col}')
+
+
+# def bot_response(list1, list2):
+#     flag = True
+#     player_sub = []
+#     player_selection = []
+#     row = randint(0, 2)
+#     col = randint(0, 2)
+#     if len(list1) > 1:
+#         for item in winning_combination:
+#             for selection in list1:
+#                 if selection in item:
+#                     player_sub.append(selection)
+#                     if len(player_sub) == 2:
+#                         player_selection = list(set(item) ^ set(player_sub))
+#                         if not set(player_selection).issubset(set(list2)):
+#                             flag = False
+#             if flag:
+#                 player_sub = []
+#             else:
+#                 break
+#         if flag:
+#             player_selection = [(row, col)]
+#
+#     else:
+#         player_selection = [(row, col)]
+#
+#     return player_selection
 
 # test = [(1, 1), (0, 0), (2, 1), (1, 0), (2, 2)]
 # for item in winning_combination:
