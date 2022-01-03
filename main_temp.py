@@ -124,16 +124,22 @@
 # winning_diagonal_1 = [[item[winning_rows.index(item)] for item in winning_rows]]
 # winning_diagonal_2 = [[item[len(item) - winning_rows.index(item) - 1] for item in winning_rows]]
 # winning_combination = winning_rows + winning_cols + winning_diagonal_1 + winning_diagonal_2
-
+import random
 from random import randint
 
 winning_combination = [[(0, 0), (0, 1), (0, 2)], [(1, 0), (1, 1), (1, 2)], [(2, 0), (2, 1), (2, 2)],
                        [(0, 0), (1, 0), (2, 0)], [(0, 1), (1, 1), (2, 1)], [(0, 2), (1, 2), (2, 2)],
                        [(0, 0), (1, 1), (2, 2)], [(0, 2), (1, 1), (2, 0)]]
 
-# player1_selection = [(1, 0)]
-player1_selection = [(0, 1), (2, 1), (1, 0)]
-player2_selection = [(1, 2), (2, 0)]
+central_position = [(1, 1)]
+corner_positions = [(0, 0), (2, 0), (0, 2), (2, 2)]
+
+
+player1_selection = [(1, 1)]
+player2_selection = [(0, 0)]
+
+# player1_selection = [(0, 1), (2, 1), (1, 0)]
+# player2_selection = [(1, 2), (2, 0)]
 # player2_selection = [(0, 0), (1, 2)]
 def bot_win(list1, list2):
     player_sub = []
@@ -152,6 +158,15 @@ def bot_win(list1, list2):
                             print('I am inside')
                             return player_selection
             player_sub = []
+
+    else:
+        bot_selection = central_position
+        if not (set(bot_selection).issubset(set(list1)) or set(bot_selection).issubset(set(list2))):
+            return bot_selection
+        else:
+            bot_selection = [random.choice(corner_positions)]
+            if not (set(bot_selection).issubset(set(list1)) or set(bot_selection).issubset(set(list2))):
+                return bot_selection
     return []
             # if flag:
             #     player_sub = []
@@ -160,7 +175,7 @@ def bot_win(list1, list2):
     #
     # return player_selection
 # plr_sel = bot_win(player2_selection, player1_selection)
-plr_sel = bot_win(player2_selection, player1_selection)
+plr_sel = bot_win(player1_selection, player2_selection)
 print(f'plr_sel: {plr_sel}')
 if not plr_sel:
     print('omg')
