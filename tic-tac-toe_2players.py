@@ -1,5 +1,8 @@
 # This program is to build a text-based version of the Tic Tac Toe game - playable in the command line
+# Allows the user to play again and Keeps the score
 # This is a Two players version
+# This is procedural programming approach. Code can be further refactored,
+# especially the code within the While loop (this was done in the OOD version of the code).
 
 # Logging into a file on the server
 import logging
@@ -28,8 +31,9 @@ row2 = ['___', '___', '___']
 row3 = ['   ', '   ', '   ']
 block = [row1, row2, row3]
 
+
 def print_ttt():
-    print(*row1, sep="|")
+    print(*row1, sep="|")           # Print list items horizontally, separated by any symbol
     print(*row2, sep="|")
     print(*row3, sep="|")
 

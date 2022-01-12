@@ -1,4 +1,6 @@
 class Chart:
+    """Prints the Tic Tac Toe chart"""
+
     def __init__(self):
         self.row1 = ['___', '___', '___']
         self.row2 = ['___', '___', '___']

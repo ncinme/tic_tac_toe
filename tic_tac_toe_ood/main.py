@@ -1,7 +1,7 @@
 # This program is to build a text-based version of the Tic Tac Toe game - playable in the command line
 # This is a Smarter Bot version - bot occupies central or corner position in the first go
-# Allows the user to play again
-# Keeps the score
+# Allows the user to play again, Keeps the score
+# This is OOD approach. Refactored the code
 
 from chart import Chart
 from player_response import Player

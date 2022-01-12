@@ -3,6 +3,7 @@ bot = Bot()
 
 
 class Winner:
+    """Checks if there is a winner after a player's or bot's response"""
     def __init__(self):
         self.player1_score = 0
         self.player2_score = 0

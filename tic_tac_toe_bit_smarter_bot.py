@@ -1,7 +1,8 @@
 # This program is to build a text-based version of the Tic Tac Toe game - playable in the command line
-# This is a Sueper Smart Bot version - bot occupies central or corner position in the first go
-# Allows the user to play again
-# Keeps the score
+# This is a Smarter Bot version - bot occupies central or corner position in the first go
+# Allows the user to play again, Keeps the score
+# This is procedural programming approach. Refactored some code but can be further refactored,
+# especially the code that initialises the variables (this was done in the OOD version of the code).
 
 from random import randint
 from bot import winning_combination, bot_response

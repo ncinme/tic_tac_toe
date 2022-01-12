@@ -1,7 +1,8 @@
 # This program is to build a text-based version of the Tic Tac Toe game - playable in the command line
-# This is a Smart Bot version. Gives opportunity to the other player to win
-# Allows the user to play again
-# Keeps the score
+# This is a Smart Bot version. However, gives ample opportunities to the other player to win
+# Allows the user to play again, Keeps the score
+# This is procedural programming approach. Code can be further refactored,
+# especially the code within the While loop (this was done in the OOD version of the code).
 
 from random import randint
 

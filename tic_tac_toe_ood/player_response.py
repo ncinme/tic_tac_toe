@@ -9,6 +9,8 @@ bot = Bot()
 
 
 class Player:
+    """Prompts the player to choose a cell and marks it on the chart"""
+
     def __init__(self, block):
         self.player1_selection = []
         self.player2_selection = []
@@ -65,4 +67,3 @@ class Player:
             self.repeat = True
 
         return self.repeat
-

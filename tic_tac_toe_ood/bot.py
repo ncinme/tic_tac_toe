@@ -1,4 +1,6 @@
 class Bot:
+    """Automatic Response from the bot based on other player's selection"""
+
     def __init__(self):
         self.winning_combination = self.win_combination()
         self.central_corner_position = [(1, 1), (0, 0), (2, 0), (0, 2), (2, 2)]
