@@ -4,19 +4,24 @@
 # Keeps the score
 
 from random import randint
+from bot import winning_combination, bot_response
 
 # Logging into a file on the server
 import logging
 LOG_FORMAT = "%(levelname)s %(asctime)s -- %(message)s"
 logging.basicConfig(filename='ttt.log', level=logging.INFO, format=LOG_FORMAT, filemode='a')
 
-# Calculate the winning combinations
-winning_rows = [[(i, j) for j in range(0, 3)] for i in range(0, 3)]
-winning_cols = [[(j, i) for j in range(0, 3)] for i in range(0, 3)]
-winning_diagonal_1 = [[item[winning_rows.index(item)] for item in winning_rows]]
-winning_diagonal_2 = [[item[len(item) - winning_rows.index(item) - 1] for item in winning_rows]]
-winning_combination = winning_rows + winning_cols + winning_diagonal_1 + winning_diagonal_2
-central_corner_position = [(1, 1), (0, 0), (2, 0), (0, 2), (2, 2)]
+# Initialize variables
+count = 1
+game_end = False
+player1_score = 0
+player2_score = 0
+player1_selection = []
+player2_selection = []
+row1 = ['___', '___', '___']
+row2 = ['___', '___', '___']
+row3 = ['   ', '   ', '   ']
+block = [row1, row2, row3]
 
 
 def print_ttt():
@@ -30,33 +35,12 @@ def play_again():
     if again == 'Y':
         counter = 1
     else:
+        # End the While loop
         counter = 100
     return counter
 
 
-def bot_response(list1, list2):
-    player_sub = []
-    if len(list1) > 1:
-        for item in winning_combination:
-            for selection in list1:
-                if selection in item:
-                    player_sub.append(selection)
-                    if len(player_sub) == 2:
-                        player_selection = list(set(item) ^ set(player_sub))
-                        if not set(player_selection).issubset(set(list2)):
-                            return player_selection
-            player_sub = []
-
-    else:
-        if len(list2) == 1:
-            for item in central_corner_position:
-                list_item = [item]
-                if not (set(list_item).issubset(set(list1)) or set(list_item).issubset(set(list2))):
-                    return [item]
-    return []
-
-
-def play_game(player):
+def mark_position(player):
     try:
         if player == 1:
             row = int(input('Choose a row 1, 2 or 3: ')) - 1
@@ -73,11 +57,13 @@ def play_game(player):
             row = player_selection[0][0]
             col = player_selection[0][1]
 
+        # Check if the position is already taken by a player
         if set(player_selection).issubset(set(player1_selection)) or set(player_selection).issubset(set(player2_selection)):
             if player == 1:
                 print(f"This option is already taken. Player {player}, please choose again!")
-            play_game(player)
+            mark_position(player)
         else:
+            # Mark new position on the chart
             if player == 1:
                 block[row][col] = '_X_'
                 player1_selection.append(player_selection[0])
@@ -88,51 +74,49 @@ def play_game(player):
     except ValueError as err:
         print(f"Please enter numeric value 1, 2 and 3. Player {player}, please enter again!")
         logging.exception(err)
-        play_game(player)
+        mark_position(player)
 
     except IndexError as err:
         print(f"Only number 1, 2 and 3 are allowed. Player {player}, please enter again!")
         logging.exception(err)
-        play_game(player)
+        mark_position(player)
 
-# Initialize variables
-count = 1
-player1_selection = []
-player2_selection = []
-player1_score = 0
-player2_score = 0
-row1 = ['___', '___', '___']
-row2 = ['___', '___', '___']
-row3 = ['   ', '   ', '   ']
-block = [row1, row2, row3]
+
+def decide_winner(player, count):
+    global player1_score
+    global player2_score
+    global game_end
+    for item in winning_combination:
+        if set(item).issubset(set(player1_selection)) or set(item).issubset(set(player2_selection)):
+            print_ttt()
+            if player == 1:
+                player1_score += 1
+            else:
+                player2_score += 1
+            print(f"Game Over!! Player {player} is the winner!!")
+            print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
+            game_end = True
+
+    if count == 9 and not game_end:
+        print_ttt()
+        print(f"It's a Draw!!")
+        print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
+        game_end = True
+
+# Play the game
 print_ttt()
-
 while count < 10:
-    game_end = False
     player = 1
     if count % 2 == 0:
         player = 2
     try:
-        play_game(player)
-        for item in winning_combination:
-            if set(item).issubset(set(player1_selection)) or set(item).issubset(set(player2_selection)):
-                print_ttt()
-                if player == 1:
-                    player1_score += 1
-                else:
-                    player2_score += 1
-                print(f"Game Over!! Player {player} is the winner!!")
-                print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
-                game_end = True
-            elif count == 9:
-                print(f"It's a Draw!!")
-                print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
-                game_end = True
-                break
-
+        mark_position(player)
+        decide_winner(player, count)
         if game_end:
             count = play_again()
             if count == 1:
+                # reset the variables
+                game_end = False
                 player1_selection = []
                 player2_selection = []
                 row1 = ['___', '___', '___']
@@ -140,7 +124,7 @@ while count < 10:
                 row3 = ['   ', '   ', '   ']
                 block = [row1, row2, row3]
                 print_ttt()
-                play_game(1)
+                mark_position(1)
             else:
                 print("Thank you. Hope you enjoined the game!!")
                 break
@@ -153,4 +137,3 @@ while count < 10:
     except Exception as err:
         print('Error!! Please try again')
         logging.exception(err)
-

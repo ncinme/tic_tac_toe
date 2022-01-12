@@ -33,7 +33,7 @@ def play_again():
     return counter
 
 
-def play_game(player):
+def mark_position(player):
     try:
         if player == 1:
             row = int(input('Choose a row 1, 2 or 3: ')) - 1
@@ -47,7 +47,7 @@ def play_game(player):
         if set(player_selection).issubset(set(player1_selection)) or set(player_selection).issubset(set(player2_selection)):
             if player == 1:
                 print(f"This option is already taken. Player {player}, please choose again!")
-            play_game(player)
+            mark_position(player)
         else:
             if player == 1:
                 block[row][col] = '_X_'
@@ -59,12 +59,12 @@ def play_game(player):
     except ValueError as err:
         print(f"Please enter numeric value 1, 2 and 3. Player {player}, please enter again!")
         logging.exception(err)
-        play_game(player)
+        mark_position(player)
 
     except IndexError as err:
         print(f"Only number 1, 2 and 3 are allowed. Player {player}, please enter again!")
         logging.exception(err)
-        play_game(player)
+        mark_position(player)
 
 # Initialize variables
 count = 1
@@ -84,7 +84,7 @@ while count < 10:
     if count % 2 == 0:
         player = 2
     try:
-        play_game(player)
+        mark_position(player)
         for item in winning_combination:
             if set(item).issubset(set(player1_selection)) or set(item).issubset(set(player2_selection)):
                 print_ttt()
@@ -95,11 +95,12 @@ while count < 10:
                 print(f"Game Over!! Player {player} is the winner!!")
                 print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
                 game_end = True
-            elif count == 9:
-                print(f"It's a Draw!!")
-                print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
-                game_end = True
-                break
+
+        if count == 9 and not game_end:
+            print_ttt()
+            print(f"It's a Draw!!")
+            print(f"Score: Player1 = {player1_score} ; Player2 = {player2_score}")
+            game_end = True
 
         if game_end:
             count = play_again()
@@ -111,7 +112,7 @@ while count < 10:
                 row3 = ['   ', '   ', '   ']
                 block = [row1, row2, row3]
                 print_ttt()
-                play_game(1)
+                mark_position(1)
             else:
                 print("Thank you. Hope you enjoined the game!!")
                 break
